@@ -27,14 +27,16 @@
   Take a picture or upload a picture and display it accurately
  
   Known Issues:
-  No known issues at the moment
+  In phones, the second canvas may not be displayed fully unless you turn the phone.
 -->
 
  <head>
+ <!-- The <head> section of the HTML document -->
 
  <style> /*Styles the container of the canvas*/
      #canvas-container {
-         display: flex; /* Use flexbox layout to position canvases side-by-side */
+         display: flex; /* Used flexbox to align canvases horizontally*/
+         align-items: center; /* Align items vertically in the center */
      }/*Closes #canvas-container*/
      canvas {
 
@@ -54,8 +56,10 @@
   <script src="https://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 
  <script>
+ /* Begin JavaScript section */
   var docMod = document.lastModified; // gets last modified date and time of the index.html file
-  console.log("This file last modified  " + docMod); // displays last modified date and time in the javascipt browser console 
+  console.log("This file last modified  " + docMod); // displays last modified date and time in the javascipt browser console
+ alert("This file last modified " + docMod); // generates alert box with time stamp. If annoying, comment out this entire line.
 
 /* detectVerticalSquash & drawImageIOSFix = are functions that are critical due to a flaw in the iPhone camera software that squishes any photos displayed on an HTML5 canvas element. https://github.com/stomita/ios-imagefile-megapixel
 */
@@ -85,6 +89,7 @@
  }
 
  function drawImageIOSFix(ctx, img, sx, sy, sw, sh, dx, dy, dw, dh) {
+ // Function to correct the image squash issue when drawing on canvas in Iphone.
   var vertSquashRatio = detectVerticalSquash(img);
   ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh / vertSquashRatio);
  }
@@ -156,10 +161,12 @@
   <div data-role="page">
     <div data-role="header">
     <h1>Primary Colors</h1></div><!-- /header -->
-    <div data-role="content">	
+    <div data-role="content">
+      <!-- Content area where the main interactive stuff are placed -->
       <h2>Push button to take picture.</h2>
       <div>
         Press orange button to create or choose image file:
+        <!-- Instructions for people to use -->
         <input type="file" id="fileInput" STYLE="background-color: #FF6600;">
       </div>
       <div id="messageDisplayArea"></div>
@@ -167,8 +174,8 @@
 
       <div id="canvas-container">
       <!--Added container to hold both of the canvas-->
-          <canvas id="myCanvas" width=320 height=250 style=""></canvas><!--The first where the original image will be shown-->
-          <canvas id="myCanvas2" width="320" height="250" style=""></canvas><!--Added the second canvas-->
+          <canvas id="myCanvas" width=320 height=250 style=""></canvas><!--The first canvas where the original image will be shown-->
+          <canvas id="myCanvas2" width="320" height="250" style=""></canvas><!--Second canvas where the transformed canvas will be shown-->
       </div>
       <!--Closed <div section-->
 
@@ -179,7 +186,7 @@
         var context = canvas.getContext("2d");
         context.font = '20pt Times New Roman';
         //Sets font of the letters inside the canvas
-        canvas.style.border = "1px solid";
+        canvas.style.border = "4px solid";
         //Adds border to the canvas
         context.fillStyle = "black";
         context.fillText("Original image will go here", 10, 50);
@@ -190,7 +197,7 @@
         //Matches width of the original canvas
         canvas2.height = 250;
         //Matches height of the original canvas
-        canvas2.style.border = "1px solid";
+        canvas2.style.border = "4px solid";
         //Adds border to the canvas
         canvas2.id = 'blueCanvas';
         //Renames new canvas
