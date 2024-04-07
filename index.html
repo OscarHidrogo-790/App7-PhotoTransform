@@ -59,20 +59,29 @@
  /* Begin JavaScript section */
   var docMod = document.lastModified; // gets last modified date and time of the index.html file
   console.log("This file last modified  " + docMod); // displays last modified date and time in the javascipt browser console
- 
+
 /* detectVerticalSquash & drawImageIOSFix = are functions that are critical due to a flaw in the iPhone camera software that squishes any photos displayed on an HTML5 canvas element. https://github.com/stomita/ios-imagefile-megapixel
 */
  function detectVerticalSquash(img) {
+  //For parts of this function I looked up what they meant because I was not sure
   var iw = img.naturalWidth, ih = img.naturalHeight;
+  //// iw and ih store the natural width and height of the image.
   var canvas = document.createElement('canvas');
+  // Creates the variable canvas
   canvas.width = 1;
+  //Sets the width of the variable
   canvas.height = ih;
+  //Sets the height equal to the image (from what I understood)
   var ctx = canvas.getContext('2d');
+  //Gets the 2D context for the canvas
   ctx.drawImage(img, 0, 0);
+  //Draws the image in the canvas
   var data = ctx.getImageData(0, 0, 1, ih).data;
+  // Retrieves the image data for the 1-pixel-wide strip.
   var sy = 0;
   var ey = ih;
   var py = ih;
+  // Initialize scan variables to find the squash ratio.
   while (py > sy) {
    var alpha = data[(py - 1) * 4 + 3];
    if (alpha === 0) {
@@ -82,21 +91,27 @@
     sy = py;
    }
    py = (ey + sy) >> 1;
-  }
+  } // Binary search to find where the image starts vertically.
   var ratio = (py / ih);
+  // The ratio is calculated as the pixel y-position divided by image height.
   return (ratio===0)?1:ratio;
+  // Returns 1 if there is no squash detected, or the ratio if squash is detected.
  }
 
  function drawImageIOSFix(ctx, img, sx, sy, sw, sh, dx, dy, dw, dh) {
  // Function to correct the image squash issue when drawing on canvas in Iphone.
   var vertSquashRatio = detectVerticalSquash(img);
+  // Calls the detectVerticalSquash function to get the squash ratio for the image.
   ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh / vertSquashRatio);
+  // Draws the image onto the canvas context while correcting for the vertical squash by adjusting the destination height.
+
  }
 
 /* window.onload necessary to keep javascripts from running before the app gets a chance to load entirely. */
  window.onload = function() {
 
      var fileInput = document.getElementById('fileInput');
+     //Grabs a reference to the file input element by its ID
      var messageDisplayArea = document.getElementById('messageDisplayArea');
      /* fileInput.addEventListener looks for any change in the <input> tag indicating that the user has selected a file (picture). */
      fileInput.addEventListener('change',
@@ -120,6 +135,7 @@
                      /*This finally draws the image onto the first drawing canvas. The specific canvas is referred to by "context". This is established down in the HTML part of the file just under the first <canvas> tag. If we weren't worried about fixing an iPhone bug we would use context.drawImage(image, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, 600, 500) instead of drawImageIOSFix */
 
                      drawImageIOSFix(context, img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, 320, 250);
+                     //Calls the function drawImageIOSFix to draw the image onto the first canvas.
 
                      /*  +++++++++++++++ BEGIN IMAGE PROCESSING +++++++++++++++ */
                      displayBlueImage(img);
@@ -139,7 +155,7 @@
                               //Changes the red value to 0
                               data[i + 1] = 0;
                               //Changes the green value to 0
-                          } //end of "for"
+                          } //end of "for" function
                           context2.putImageData(imageData, 0, 0);
                           //Sets the image in the second canvas
                       } //end of function to display blue image
@@ -150,8 +166,8 @@
                   img.src = reader.result;
               } //  end of reader.onload
               reader.readAsDataURL(file);
-          } // end of the else statement if file in NOT an image
-  }) // end of the fileInput.addEventListener function
+          } // end of the else statement if file is supported
+  }) // end of the function (e)
  } // end of the window.onload function
  </script>
  </head>
@@ -181,13 +197,17 @@
       <script> /* This script initiates the canvas and puts the text on the canvas "myCanvas" */
 
         var canvas = document.getElementById('myCanvas');
+        //Retrieves the first canvas for Javascript to use
         var context = canvas.getContext("2d");
+        //Sets the 2D context
         context.font = '20pt Times New Roman';
         //Sets font of the letters inside the canvas
         canvas.style.border = "4px solid";
         //Adds border to the canvas
         context.fillStyle = "black";
+        //Sets the collor for filling shapes and letters
         context.fillText("Original image will go here", 10, 50);
+        //Sets the location of the text and what will be displayed
 
         var canvas2 = document.getElementById('myCanvas2');
         //Adds a new variable for the second canvas
