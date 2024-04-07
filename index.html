@@ -91,6 +91,7 @@
 
 /* window.onload necessary to keep javascripts from running before the app gets a chance to load entirely. */
  window.onload = function() {
+
      var fileInput = document.getElementById('fileInput');
      var messageDisplayArea = document.getElementById('messageDisplayArea');
      /* fileInput.addEventListener looks for any change in the <input> tag indicating that the user has selected a file (picture). */
@@ -114,7 +115,7 @@
                  img.onload = function () {
                      /*This finally draws the image onto the first drawing canvas. The specific canvas is referred to by "context". This is established down in the HTML part of the file just under the first <canvas> tag. If we weren't worried about fixing an iPhone bug we would use context.drawImage(image, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, 600, 500) instead of drawImageIOSFix */
 
-                     drawImageIOSFix(context, img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, 600, 500);
+                     drawImageIOSFix(context, img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, 320, 250);
 
                      /*  +++++++++++++++ BEGIN IMAGE PROCESSING +++++++++++++++ */
                      displayBlueImage(img);
@@ -122,7 +123,7 @@
                       /*  ++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
                       function displayBlueImage(img) {
                           //Created a function to display the blue image
-                          context.drawImage(img, 0, 0, img.width, img.height);
+                          drawImageIOSFix(context, img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, 320, 250);
                           //Calling the original image to work with it
                           var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
                           //Gets the color data of the image
