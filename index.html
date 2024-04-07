@@ -166,8 +166,8 @@
 
       <div id="canvas-container">
       <!--Added container to hold both of the canvas-->
-          <canvas id="myCanvas" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas><!--The first where the original image will be shown-->
-          <canvas id="myCanvas2" width="600" height="500" style=""></canvas><!--Added the second canvas-->
+          <canvas id="myCanvas" width=320 height=250 style=""></canvas><!--The first where the original image will be shown-->
+          <canvas id="myCanvas2" width="320" height="250" style=""></canvas><!--Added the second canvas-->
       </div>
       <!--Closed <div section-->
 
@@ -177,14 +177,17 @@
         var canvas = document.getElementById('myCanvas');
         var context = canvas.getContext("2d");
         context.font = '20pt Times New Roman';
+        //Sets font of the letters inside the canvas
+        canvas.style.border = "1px solid";
+        //Adds border to the canvas
         context.fillStyle = "black";
-        context.fillText("Original image will go here", 10, 20);
+        context.fillText("Original image will go here", 10, 50);
 
         var canvas2 = document.getElementById('myCanvas2');
         //Adds a new variable for the second canvas
-        canvas2.width = 600;
+        canvas2.width = 320;
         //Matches width of the original canvas
-        canvas2.height = 500;
+        canvas2.height = 250;
         //Matches height of the original canvas
         canvas2.style.border = "1px solid";
         //Adds border to the canvas
