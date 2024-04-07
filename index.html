@@ -35,18 +35,16 @@
  <style> /*Styles the container of the canvas*/
      #canvas-container {
          display: flex; /* Use flexbox layout to position canvases side-by-side */
-  }/*Closes #canvas-container*/
+     }/*Closes #canvas-container*/
      canvas {
-         max-width: 100%;
-         /* Ensure canvas is not wider than the screen */
-         height: auto;
-          /* Ensure the height is set automatically to the ratio */
+
          margin: 10px;
          /* Add some space around the canvases */
          border: 1px solid #d3d3d3;
          /* Add border for visibility */
-  }/*closes canvas section*/
- </style>
+     }/*closes canvas section*/
+ </style> <!--Closes style section-->
+
   <meta charset="utf-8">
   <title>Photo Transform</title>
   <meta name="viewport" content="width=device-width, initial-scale=.7">
@@ -192,8 +190,6 @@
         //Adds border to the canvas
         canvas2.id = 'blueCanvas';
         //Renames new canvas
-        document.getElementById('content').appendChild(canvas2);
-        //Adds the canavs to the main body of the page hopefully
         var context2 = canvas2.getContext('2d');
         //I think is telling it to draw. I just knows it calls the function to do something in a 2D context
         context2.font = '20pt Times New Roman';
