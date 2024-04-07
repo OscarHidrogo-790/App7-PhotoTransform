@@ -31,6 +31,22 @@
 -->
 
  <head>
+
+ <style> /*Styles the container of the canvas*/
+     #canvas-container {
+         display: flex; /* Use flexbox layout to position canvases side-by-side */
+  }/*Closes #canvas-container*/
+     canvas {
+         max-width: 100%;
+         /* Ensure canvas is not wider than the screen */
+         height: auto;
+          /* Ensure the height is set automatically to the ratio */
+         margin: 10px;
+         /* Add some space around the canvases */
+         border: 1px solid #d3d3d3;
+         /* Add border for visibility */
+  }/*closes canvas section*/
+ </style>
   <meta charset="utf-8">
   <title>Photo Transform</title>
   <meta name="viewport" content="width=device-width, initial-scale=.7">
@@ -110,7 +126,7 @@
                           //Created a function to display the blue image
                           context.drawImage(img, 0, 0, img.width, img.height);
                           //Calling the original image to work with it
-                          var imageData = context.getImageData(0, 0, canvas2.width, canvas2.height);
+                          var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
                           //Gets the color data of the image
                           var data = imageData.data;
                           //Access the RGB values of the original image
@@ -120,10 +136,10 @@
                               //Changes the red value to 0
                               data[i + 1] = 0;
                               //Changes the green value to 0
-                          }
+                          } //end of "for"
                           context2.putImageData(imageData, 0, 0);
                           //Sets the image in the second canvas
-                      }
+                      } //end of function to display blue image
 
                       // /* PUT ANY CHANGES TO THE JAVASCRIPT HERE  */
                   } // end of img.onload
@@ -148,16 +164,21 @@
         <input type="file" id="fileInput" STYLE="background-color: #FF6600;">
       </div>
       <div id="messageDisplayArea"></div>
+      <!--Area to display the message-->
 
-        <canvas id="myCanvas" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas>
+      <div id="canvas-container">
+      <!--Added container to hold both of the canvas-->
+          <canvas id="myCanvas" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas><!--The first where the original image will be shown-->
+          <canvas id="myCanvas2" width="600" height="500" style=""></canvas><!--Added the second canvas-->
+      </div>
+      <!--Closed <div section-->
 
-        <div id="content">
-            <canvas id="myCanvas2" width="600" height="500" style=""></canvas>
-        </div>
-        <script> /* This script initiates the canvas and puts the text on the canvas "myCanvas" */
+      <script> /* This script initiates the canvas and puts the text on the canvas "myCanvas" */
+
+
         var canvas = document.getElementById('myCanvas');
         var context = canvas.getContext("2d");
-        context.font = '20pt Calibri';
+        context.font = '20pt Times New Roman';
         context.fillStyle = "black";
         context.fillText("Original image will go here", 10, 20);
 
@@ -181,8 +202,8 @@
         //Sets the color of the text to black
         context2.fillText("Blue image will go here", 10, 50);
         //Says that the blue image will inside the canvas
-
       </script>
+      <!--Closing script section-->
 
     </div><!-- /content -->
     <div data-role="footer" data-position="fixed">
