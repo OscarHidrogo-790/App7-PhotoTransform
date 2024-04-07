@@ -99,17 +99,17 @@
                       drawImageIOSFix(context, img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, 600, 500);
 
                       /*  +++++++++++++++ BEGIN IMAGE PROCESSING +++++++++++++++ */
-                       var canvas2 = document.createElement('canvas');
+                      var canvas2 = document.createElement('canvas');
                       //Adds a new variable for the second canvas
                       canvas2.width = 600;
                       //Matches width of the original canvas
                       canvas2.height = 500;
                       //Matches height of the original canvas
-                      canvas2.style.border = "1px solid #000";
+                      canvas2.style.border = "1px solid";
                       //Adds border to the canvas
                       canvas2.id = 'blueCanvas';
                       //Renames new canvas
-                      document.body.appendChild(canvas2);
+                      document.getElementById('content').appendChild(canvas2);
                       //Adds the canavs to the main body of the page hopefully
                       var context2 = canvas2.getContext('2d');
                       //I think is telling it to draw. I just knows it calls the function to do something in a 2D context
@@ -121,7 +121,17 @@
                       //Says that the blue image will inside the canvas
 
 
-                  /*  ++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+                      /*  ++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+                      function displayBlueImage(img) {
+                          //Created a function to display the blue image
+                          context.drawImage(img, 0, 0);
+                          //Calling the original image to work with it
+                          var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                          //Gets the color data of the image
+                          var data = imageData.data;
+                          //Access the RGB values of the original image
+
+                      }
 
                   /* PUT ANY CHANGES TO THE JAVASCRIPT HERE  */
 
